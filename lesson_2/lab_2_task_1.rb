@@ -1,6 +1,5 @@
 def Check(word)
-    word.upcase
-    if (word[-2]=="C" || word[-2]=="c") && (word[-1]=="S" || word[-1]=="s")
+    if word[-2].upcase=="C" && word[-1].upcase=="S"
         puts 2**word.length
     else
         puts word.reverse
