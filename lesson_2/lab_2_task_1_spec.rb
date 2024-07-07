@@ -1,11 +1,10 @@
 require 'rspec'
 
 def Check(word)
-  word.upcase
-  if (word[-2]=="C" || word[-2]=="c") && (word[-1]=="S" || word[-1]=="s")
+  if word[-2].upcase=="C" && word[-1].upcase=="S"
     2**word.length
   else
-     word.reverse
+    word.reverse
   end
 end
 
