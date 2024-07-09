@@ -63,7 +63,17 @@ def cashmachine(command)
     end                
 end
 
-$balance=File.read("balance.txt")
+const=100.0
+if File.exist?("balance.txt")
+    file=File.open("balance.txt","r")
+    balance=file.read
+    balance=balance.to_f
+else
+    file=File.new("balance.txt","w")
+    file.puts const
+    balance=const
+end
+$balance=balance
 print "Введите команду (D - добавить средства, W - снять средства, B - проверить баланс, Q - закрыть программу): \n"
 command=gets.chomp
 cashmachine(command.upcase)
