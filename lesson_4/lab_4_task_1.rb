@@ -54,9 +54,23 @@ class CashMachine
                 command=gets.chomp
             end
         end
+        puts 'Программа закрыта'
+        file=File.open("balance.txt", "w")
+        file.puts $balance
+        file.close
     end
 end
 
-$balance=100.0
+const=100.0
+if File.exist?("balance.txt")
+    file=File.open("balance.txt","r")
+    balance=file.read
+    balance=balance.to_f
+else
+    file=File.new("balance.txt","w")
+    file.puts const
+    balance=const
+end
+$balance=balance
 cashmachine=CashMachine.new
 cashmachine.init
