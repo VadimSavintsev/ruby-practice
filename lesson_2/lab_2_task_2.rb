@@ -2,21 +2,29 @@
 #-Спросит сколько добавить покемонов
 #-Указанное на предыдущем этапе число раз спросит имя и цвет каждого покемона
 
-
-require 'json'
-
-def pokemons
-    puts "Сколько покемонов вы хотите добавить? \n"
-    count=gets.to_i
-    pokemons={}
-    count.times do
-        puts "Введите имя покемона \n"
-        name=gets.chomp
-        puts "Введите цвет покемона \n"
-        color=gets.chomp
-        pokemons[name]=color
-    end
-    puts pokemons.to_json
+def CountPok()
+    puts 'Введите количество покемонов'
+    count = gets.to_i
+    return count
 end
 
-pokemons
+def AddPok(count)
+    pokemons = {}
+    while count.to_i > 0 do
+        puts 'Имя покемона: '
+        name = gets.chomp
+        puts 'Цвет покемона: '
+        color = gets.chomp
+        pokemons[name] = color
+        count = count.to_i - 1
+    end
+    return pokemons
+end
+
+def PrintPok(pokemons)
+    puts pokemons
+end
+
+count = CountPok()
+pokemons = AddPok(count)
+PrintPok(pokemons)
