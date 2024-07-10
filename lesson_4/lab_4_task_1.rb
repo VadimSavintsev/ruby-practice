@@ -32,45 +32,38 @@ class CashMachine
         puts sprintf("%.2f",$balance)
         return $balance
     end
-    def init
-        print "Введите команду (D - добавить средства, W - снять средства, B - проверить баланс, Q - закрыть программу): \n"
-        command=gets.chomp
-        while command.upcase!="Q" do
-            if command.upcase=="D"
-                $balance=self.class.Deposit
-                print "Введите команду (D - добавить средства, W - снять средства, B - проверить баланс, Q - закрыть программу): \n"
-                command=gets.chomp
-            elsif command.upcase=="W"
-                $balance=self.class.Withdraw
-                print "Введите команду (D - добавить средства, W - снять средства, B - проверить баланс, Q - закрыть программу): \n"
-                command=gets.chomp
-            elsif command.upcase=="B"
-                $balance=self.class.ShowBalance
-                print "Введите команду (D - добавить средства, W - снять средства, B - проверить баланс, Q - закрыть программу): \n"
-                command=gets.chomp
-            else
-                print "Неправильно введена команда! \n"
-                print "Введите команду (D - добавить средства, W - снять средства, B - проверить баланс, Q - закрыть программу): \n"
-                command=gets.chomp
-            end
+    def self.init
+        const=100.0
+        if File.exist?("balance.txt")
+            file=File.open("balance.txt","r")
+            balance=file.read
+            balance=balance.to_f
+        else
+            file=File.new("balance.txt","w")
+            file.puts const
+            balance=const
         end
-        puts 'Программа закрыта'
-        file=File.open("balance.txt", "w")
-        file.puts $balance
-        file.close
+        $balance=balance
     end
 end
 
-const=100.0
-if File.exist?("balance.txt")
-    file=File.open("balance.txt","r")
-    balance=file.read
-    balance=balance.to_f
-else
-    file=File.new("balance.txt","w")
-    file.puts const
-    balance=const
+CashMachine.init
+command=" "
+while command.upcase!="Q"
+    print "Введите команду (D - добавить средства, W - снять средства, B - проверить баланс, Q - закрыть программу): \n"
+    command=gets.chomp
+    command=command.upcase
+    case command
+    when "D"
+        $balance=CashMachine.Deposit
+    when "W"
+        $balance=CashMachine.Withdraw
+    when "Q"
+        puts 'Программа закрыта'
+         file=File.open("balance.txt", "w")
+         file.puts $balance
+         break
+    else
+        print "Неправильно введена команда! \n"
+    end
 end
-$balance=balance
-cashmachine=CashMachine.new
-cashmachine.init
