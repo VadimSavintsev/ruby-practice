@@ -7,7 +7,7 @@
 require 'socket'
 require './CashMachine.rb'
 
-server=TCPServer.new('0.0.0.0',9080)
+server=TCPServer.new('0.0.0.0',5080)
 
 while connection=server.accept
     request=connection.gets
@@ -27,13 +27,13 @@ while connection=server.accept
     when "/Deposit"
         'Input Deposit sum'
         sum=params.to_f
-        CashMachine.Deposit(sum)
+        CashMachine.deposit(sum)
     when "/Withdraw"
         'Input Withdraw sum'
         sum=params.to_f
-        CashMachine.Withdraw(sum)
+        CashMachine.withdraw(sum)
     when "/Balance"
-        "Balance: #{$balance.round(2)}\n\n"
+        CashMachine.tekBalance
     else
         "404"
     end
